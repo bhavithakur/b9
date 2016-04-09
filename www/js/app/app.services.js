@@ -118,12 +118,12 @@ this.request = function(method,url,data,success,error){
         return dfd.promise;
     };
 }).service('FeedService', function($http, $q,Ajax,URL) {
-    this.getFeed = function(success,fail) {
+    this.getFeed = function(user_id,success,fail) {
 /*        var pageSize = 5, // set your page size, which is number of records per page
             skip = pageSize * (page - 1),
             totalPosts = 1,
             totalPages = 1,*/
-            Ajax.request("get","posts",null,success,fail);
+            Ajax.request("get","posts?user_id="+user_id,null,success,fail);
            /* dfd = $q.defer();
         $http.get('database.json').success(function(database) {
             totalPosts = database.posts.length;
@@ -149,6 +149,16 @@ this.request = function(method,url,data,success,error){
         return dfd.promise;*/
 
 
+    };
+
+    this.likePost = function(data,success,fail){
+        Ajax.request("post","likePost",data,success,fail);
+    };   
+    this.dislikePost = function(data,success,fail){
+        Ajax.request("post","dislikePost",data,success,fail);
+    };    
+    this.addComment = function(data,success,fail){
+        Ajax.request("post","addComment",data,success,fail);
     };
     this.getFeedByCategory = function(page, categoryId) {
         var pageSize = 5, // set your page size, which is number of records per page
@@ -332,7 +342,7 @@ this.request = function(method,url,data,success,error){
 }).factory('Comment', function() {
     return function(content, user) {
         this.user = user;
-        this.content = content;
+        this.comment = content;
     };
 }).factory('Post', function() {
     return function() {

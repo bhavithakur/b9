@@ -58,9 +58,19 @@ angular.module('behave.app.controllers', [])
   };
 
   $scope.addComment = function(content){
+    var currentData = {
+      comment:content,
+      user_id:$rootScope.loggedUser.id,
+      post_id:$scope.current_post.id
+    };
+    FeedService.addComment(currentData,function(response){
     var comment  = new Comment(content,$rootScope.loggedUser);
     $scope.current_post.comments.push(comment);
     $scope.commentContent = "";
+    },function(err){
+
+    });
+/*    */
 
   };
 
@@ -274,12 +284,79 @@ angular.module('behave.app.controllers', [])
  // $rootScope.loggedUser = loggedUser;
  // $rootScope.cards = feed.posts;
 
- FeedService.getFeed(function(response){
+ FeedService.getFeed($rootScope.loggedUser.id,function(response){
   console.log(response);
   $rootScope.cards = response.data.data;
+/*  console.log($rootScope.cards);
+  console.log($rootScope.loggedUser);*/
+
  },function(error){
 
  });
+
+ var currentData = {
+  'user_id':$rootScope.loggedUser.id,
+  'post_id':null
+ };
+
+   $scope.likePost = function(card){
+    currentData.post_id=card.id;
+    
+    if(card.disliked){
+      card.disliked=false;
+      card.dislikes.pop();
+    }
+      
+
+    if(card.liked){
+FeedService.likePost(currentData,function(response){
+      card.liked = false;
+      card.likes.pop();
+      },function(error){
+
+      });
+    }
+    else{
+  
+      FeedService.likePost(currentData,function(response){
+      card.liked = true;
+      card.likes.push(currentData);
+      },function(error){
+
+      });
+    }
+  }    
+  $scope.dislikePost = function(card){
+    currentData.post_id=card.id;
+    
+    if(card.disliked){
+
+            FeedService.dislikePost(currentData,function(response){
+       card.disliked=false;
+      card.dislikes.pop();
+      },function(error){
+
+      });
+    
+    }
+      else{
+
+            FeedService.dislikePost(currentData,function(response){
+       card.disliked=true;
+      card.dislikes.push(currentData);
+      },function(error){
+
+      });
+      }
+
+    if(card.liked){
+
+      card.liked = false;
+      card.likes.pop();
+
+    }
+
+  }  
 /*  $scope.page = 1;// Default page is 1
   $scope.totalPages = feed.totalPages;
 
