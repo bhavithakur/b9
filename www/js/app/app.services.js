@@ -153,6 +153,9 @@ this.request = function(method,url,data,success,error){
 
     this.likePost = function(data,success,fail){
         Ajax.request("post","likePost",data,success,fail);
+    };     
+    this.createPost = function(data,success,fail){
+        Ajax.request("post","createPost",data,success,fail);
     };   
     this.dislikePost = function(data,success,fail){
         Ajax.request("post","dislikePost",data,success,fail);

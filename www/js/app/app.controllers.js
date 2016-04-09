@@ -83,7 +83,7 @@ angular.module('behave.app.controllers', [])
   };
 })
 
-.controller('NewPostCtrl', function($scope, $ionicModal, $ionicLoading, $timeout, $cordovaImagePicker, $ionicPlatform, GooglePlacesService,$rootScope,Post) {
+.controller('NewPostCtrl', function($scope, $ionicModal, $ionicLoading, $timeout, $cordovaImagePicker, $ionicPlatform, GooglePlacesService,$rootScope,Post,FeedService) {
 /*  $scope.status_post = {
     audience: 'public',
     text: '',
@@ -95,10 +95,15 @@ angular.module('behave.app.controllers', [])
     title:$rootScope.loggedUser.name.first+" 's Post"
   };*/
 
-  $scope.status_post = new Post();
+/*  $scope.status_post = new Post();
    $scope.status_post.user=$rootScope.loggedUser;
-    $scope.status_post.title=$rootScope.loggedUser.name.first+" 's Post";
-    $scope.status_post.id = $rootScope.cards.length;
+    $scope.status_post.title=$rootScope.loggedUser.name.first+" 's Post";*/
+    
+    $scope.data = {
+      user_id:$rootScope.loggedUser.id,
+      title:"",
+      description:""
+    };
 
     
 
@@ -196,11 +201,27 @@ angular.module('behave.app.controllers', [])
     console.log('Posting status', $scope.status_post);
 
     // Simulate a posting delay. Remove this and replace with your posting code
-    $timeout(function() {
+
+    FeedService.createPost($scope.data,function(response){
+          $timeout(function() {
       $ionicLoading.hide();
       $scope.closeStatusPost();
-      $rootScope.cards.unshift($scope.status_post);
+       FeedService.getFeed($rootScope.loggedUser.id,function(response){
+  console.log(response);
+  $rootScope.cards = response.data.data;
+/*  console.log($rootScope.cards);
+  console.log($rootScope.loggedUser);*/
+
+ },function(error){
+
+ });
+
+      //$rootScope.cards.unshift($scope.status_post);
     }, 1000);
+    },function(error){});
+
+
+
   };
 })
 
@@ -280,7 +301,7 @@ angular.module('behave.app.controllers', [])
   };
 })
 
-.controller('FeedCtrl', function($scope, _, FeedService, $stateParams,  $rootScope) {
+.controller('FeedCtrl', function($scope, _, FeedService, $stateParams,  $rootScope,$state) {
  // $rootScope.loggedUser = loggedUser;
  // $rootScope.cards = feed.posts;
 
@@ -297,6 +318,10 @@ angular.module('behave.app.controllers', [])
  var currentData = {
   'user_id':$rootScope.loggedUser.id,
   'post_id':null
+ };
+
+ $scope.showPost=function(card){
+  $state.go("app.post",{post:card});
  };
 
    $scope.likePost = function(card){
@@ -524,8 +549,10 @@ FeedService.likePost(currentData,function(response){
 	};
 })
 
-.controller('PostDetailsCtrl', function($scope, post, FeedService, $ionicPopup) {
-  $scope.post = post;
+.controller('PostDetailsCtrl', function($scope, FeedService, $ionicPopup,$stateParams) {
+  $scope.post = $stateParams.post;
+  
+
 })
 
 ;

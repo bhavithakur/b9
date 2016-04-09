@@ -6,14 +6,14 @@
           <img ng-src="{{post.picture}}" spinner-on-load>
         </pre-img>
       </div>
-      <div class="item item-divider trend-callout">
+<!--       <div class="item item-divider trend-callout">
         <span class="post-trend-copy">Catch up with this trend</span>
         <a class="trend-wrapper button button-small" ui-sref="app.trend_feed({ trendId: post.trend.id })">
           <i class="icon ion-arrow-graph-up-right"></i>
           <span class="post-trend">{{ post.trend.name }}</span>
           <i class="icon ion-chevron-right"></i>
         </a>
-      </div>
+      </div> -->
       <div class="item item-body">
         <h2 class="post-title">{{post.title}}</h2>
       </div>
@@ -26,12 +26,12 @@
           </a>
         </div>
         <a ui-sref="app.profile.posts({userId: post.userId})">
-          <h2 class="avatar-title">{{ post.user.name.first }} {{ post.user.name.last }}</h2>
+          <h2 class="avatar-title">{{ post.user.name }} </h2>
         </a>
-        <p class="avatar-description"><span am-time-ago="post.date"></span></p>
+<!--         <p class="avatar-description"><span am-time-ago="post.date"></span></p>
           <a ui-sref="app.category_feed({ categoryId: post.category.id })">
             <span class="post-category {{ post.category.name }}">{{ post.category.name }}</span>
-          </a>
+          </a> -->
       </div>
       <div class="item item-body post-description-outer">
         <p class="post-description">{{post.description}}</p>
@@ -47,8 +47,8 @@
       </div>
       <div class="col col-50 col-center brief-col">
         <div class="actions-brief">
-          <a href="#" class="subdued">{{post.likes}} Likes</a>
-          <a ng-controller="CommentsCtrl" ng-click="showComments(post)" class="subdued">{{post.comments}} Comments</a>
+          <a href="#" class="subdued">{{post.likes.length}} Likes</a>
+          <a ng-controller="CommentsCtrl" ng-click="showComments(post)" class="subdued">{{post.comments.length}} Comments</a>
         </div>
       </div>
     </div>

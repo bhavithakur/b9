@@ -118,11 +118,14 @@ angular.module('behave', [
         controller: 'PostDetailsCtrl'
       }
     },
+    params:{
+      post:null
+    }/*s,
     resolve: {
       post: function(FeedService, $stateParams){
         return FeedService.getPost($stateParams.postId);
       }
-    }
+    }*/
   })
 
   .state('app.profile', {
