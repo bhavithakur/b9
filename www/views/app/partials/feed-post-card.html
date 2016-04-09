@@ -1,0 +1,57 @@
+<div class="card-1">
+  <div class="list card">
+    <div class="item item-image">
+      <a class="card-image-anchor" ui-sref="app.post({ postId: card.id })">
+        <pre-img ratio="_8_5" helper-class="main-image">
+          <img ng-src="{{ card.image }}" spinner-on-load>
+        </pre-img>
+      </a>
+    </div>
+    <div class="item item-body">
+      <a ui-sref="app.post({ postId: card.id })">
+        <h2 class="card-title">{{ card.title }}</h2>
+      </a>
+    </div>
+    <div class="item item-avatar">
+      <div class="card-avatar-image-outer">
+        <a ui-sref="app.profile.posts({userId: card.userId})">
+          <pre-img ratio="_1_1" helper-class="avatar-image">
+            <img ng-src="{{ card.user.image }}" spinner-on-load>
+          </pre-img>
+        </a>
+      </div>
+      <a ui-sref="app.profile.posts({userId: card.userId})">
+        <h2 class="avatar-title">{{ card.user.name}} </h2>
+      </a>
+      <p class="avatar-description"><span am-time-ago="card.date"></span></p>
+        <a ui-sref="app.category_feed({ categoryId: card.category.id })">
+          <span class="card-tag post-category {{ card.category.name }}">{{ card.category.name }}</span>
+        </a>
+    </div>
+    <div class="actions-brief">
+      <a href="#" class="subdued">{{card.likes.length}} Likes</a>
+      <a href="#" class="subdued">{{card.dislikes.length}} Dislikes</a>
+<!--       <a ng-controller="CommentsCtrl" ng-click="showComments(card)" ng-show="card.liked || card.disliked" class="subdued">{{card.comments.length}} Comments</a> -->
+      <a ng-controller="CommentsCtrl" ng-click="showComments(card)"  class="subdued">{{card.comments.length}} Comments</a>
+      <a href="#" class="subdued">{{card.shares}} Shares</a>
+    </div>
+    <div class="item tabs tabs-icon-left">
+      <a class="tab-item" ng-class="{liked: card.liked}" ng-click="likePost(card)" href="#">
+        <i class="icon theme-icon icon-like"></i>
+        Like
+      </a>
+        <a class="tab-item" ng-class="{liked: card.disliked}" ng-click="dislikePost(card)" href="#">
+        <i class="icon theme-icon icon-like"></i>
+        Dislike
+      </a>
+      <a class="tab-item" ng-show="card.liked || card.disliked" ng-controller="CommentsCtrl" ng-click="showComments(card)">
+        <i class="icon theme-icon icon-bubble"></i>
+        Comment
+      </a>
+      <a class="tab-item" social-share share="card">
+        <i class="icon theme-icon icon-share"></i>
+        Share
+      </a>
+    </div>
+  </div>
+</div>
