@@ -83,7 +83,7 @@ angular.module('behave.app.controllers', [])
   };
 })
 
-.controller('NewPostCtrl', function($scope, $ionicModal, $ionicLoading, $timeout, $cordovaImagePicker, $ionicPlatform, GooglePlacesService,$rootScope,Post,FeedService) {
+.controller('NewPostCtrl', function($scope, $ionicModal, $ionicLoading, $timeout, $cordovaImagePicker, $ionicPlatform, GooglePlacesService,$rootScope,Post,FeedService,FileService) {
 /*  $scope.status_post = {
     audience: 'public',
     text: '',
@@ -140,7 +140,7 @@ angular.module('behave.app.controllers', [])
        .then(function (results) {
           for (var i = 0; i < results.length; i++) {
             console.log('Image URI: ' + results[i]);
-            $scope.status_post.images.push(results[i]);
+            $scope.data.image=results[i];
           }
         }, function(error) {
           // error getting photos
@@ -215,6 +215,12 @@ angular.module('behave.app.controllers', [])
  },function(error){
 
  });
+       if($scope.data.image){
+        FileService.uploadFile($scope.data.image,"image",$scope.data,function(r){
+
+          console.log("File Uploaded");
+      },function(err){console.log("Upload Error")});
+       }
 
       //$rootScope.cards.unshift($scope.status_post);
     }, 1000);
