@@ -2,7 +2,7 @@
 <widget id="com.behave.sakka" version="1.0.0" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
     <name>Behave</name>
     <description>
-        Behave mobiel application
+        Behave mobile application
     </description>
     <author email="hi@startapplabs.com" href="http://example.com.com/">
       Ahmed EL-Sakka

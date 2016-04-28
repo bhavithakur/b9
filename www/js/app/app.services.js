@@ -39,8 +39,8 @@ this.request = function(method,url,data,success,error){
 };
 
 }).service('URL',function(){
-    //this.api_url = 'http://52.35.164.203/b9/public/';
-    this.api_url = 'http://192.168.1.2/behave_api/public/';
+    this.api_url = 'http://52.35.164.203/b9/public/';
+   // this.api_url = 'http://192.168.1.120:8888/behave-api/public/';
 })
 .service('ProfileService', function($http, $q) {
     this.getUserData = function(userId) {
@@ -373,7 +373,7 @@ this.request = function(method,url,data,success,error){
 }
 
 var fail = function (error) {
-    alert("An error has occurred: Code = " + error.code);
+   // alert("An error has occurred: Code = " + error.code);
     console.log("upload error source " + error.source);
     console.log("upload error target " + error.target);
     fail(error);
@@ -386,6 +386,7 @@ options.mimeType = "text/plain";
 options.params = params;
 
 var ft = new FileTransfer();
+alert(url);
 ft.upload(url, URL.api_url+"upload", win, fail, options);
     };
 });

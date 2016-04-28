@@ -30,7 +30,8 @@
       <div class="item item-avatar">
         <div class="card-avatar-image-outer">
           <pre-img ratio="_1_1" helper-class="avatar-image">
-            <img ng-src="{{loggedUser.picture}}" spinner-on-load>
+          <!-- spinner-on-load -->
+            <img ng-src="{{loggedUser.picture}}" >
           </pre-img>
         </div>
         <a class="new-post-call-to-action" ng-click="newStatusPost()">

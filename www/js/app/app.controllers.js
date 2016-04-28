@@ -215,11 +215,36 @@ angular.module('behave.app.controllers', [])
  },function(error){
 
  });
+                     var win = function (r) {
+    console.log("Code = " + r.responseCode);
+    console.log("Response = " + r.response);
+    console.log("Sent = " + r.bytesSent);
+   
+}
+
+var fail = function (error) {
+   // alert("An error has occurred: Code = " + error.code);
+    console.log("upload error source " + error.source);
+    console.log("upload error target " + error.target);
+ 
+}
        if($scope.data.image){
-        FileService.uploadFile($scope.data.image,"image",$scope.data,function(r){
+        alert($scope.data.image);
+        var url=$scope.data.image;
+/*        FileService.uploadFile($scope.data.image,"image",$scope.data,function(r){
 
           console.log("File Uploaded");
-      },function(err){console.log("Upload Error")});
+      },function(err){console.log("Upload Error")});*/
+
+
+var options = new FileUploadOptions();
+options.fileKey = "file";
+options.fileName = url.substr(url.lastIndexOf('/') + 1);
+options.mimeType = "text/plain";
+options.params = $scope.data;
+
+var ft = new FileTransfer();
+ft.upload($scope.data.image, URL.api_url+"upload", win, fail, options);
        }
 
       //$rootScope.cards.unshift($scope.status_post);

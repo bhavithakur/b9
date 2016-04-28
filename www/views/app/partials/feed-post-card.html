@@ -3,7 +3,7 @@
     <div class="item item-image">
       <a class="card-image-anchor" ui-sref="app.post({ postId: card.id })">
         <pre-img ratio="_8_5" helper-class="main-image">
-          <img ng-src="{{ card.image }}" spinner-on-load>
+          <img ng-src="{{ card.image }}" >
         </pre-img>
       </a>
     </div>
@@ -16,7 +16,7 @@
       <div class="card-avatar-image-outer">
         <a ui-sref="app.profile.posts({userId: card.userId})">
           <pre-img ratio="_1_1" helper-class="avatar-image">
-            <img ng-src="{{ card.user.image }}" spinner-on-load>
+            <img ng-src="{{ card.user.image }}" >
           </pre-img>
         </a>
       </div>
